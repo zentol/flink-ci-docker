@@ -17,11 +17,16 @@ RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | a
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ ; \
     apt-get update ; apt-get install -y adoptopenjdk-11-hotspot
 
+# Install Temurin JDK17
+RUN wget -q https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.1%2B12/OpenJDK17U-jdk_x64_linux_hotspot_17.0.1_12.tar.gz
+RUN tar -C /usr/lib/jvm -xzf OpenJDK17U-jdk_x64_linux_hotspot_17.0.1_12.tar.gz
+
 # Add java to PATH for all users, and user
 # use java8 by default, but provide java11 as well
 RUN echo "PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH" >> /etc/environment
 RUN echo "JAVA_HOME_8_X64=/usr/lib/jvm/java-8-openjdk-amd64" >> /etc/environment
 RUN echo "JAVA_HOME_11_X64=/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64" >> /etc/environment
+RUN echo "JAVA_HOME_17_X64=/usr/lib/jvm/jdk-17.0.1+12" >> /etc/environment
 RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /etc/environment
 RUN update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 RUN update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
@@ -31,6 +36,7 @@ RUN update-alternatives --set javadoc /usr/lib/jvm/java-8-openjdk-amd64/bin/java
 
 ENV JAVA_HOME_8_X64 "/usr/lib/jvm/java-8-openjdk-amd64"
 ENV JAVA_HOME_11_X64 "/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64"
+ENV JAVA_HOME_17_X64 "/usr/lib/jvm/jdk-17.0.1+12"
 ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
 
 # Install go
