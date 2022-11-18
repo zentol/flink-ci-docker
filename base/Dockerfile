@@ -54,7 +54,7 @@ RUN mkdir -p /usr/share/hugo \
  && ln -s /usr/share/hugo/hugo /usr/bin/hugo
 
 # Install maven
-ARG MAVEN_VERSION=3.2.5
+ARG MAVEN_VERSION=3.8.6
 ARG USER_HOME_DIR="/root"
 ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
 
@@ -63,17 +63,6 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
-# put custom http-wagon. More details: https://issues.apache.org/jira/browse/FLINK-16947?focusedCommentId=17285028&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-17285028
-RUN cd /usr/share/maven/lib/ \
-  && rm wagon-http-*-shaded.jar \
-  && curl -O https://repo1.maven.org/maven2/org/apache/maven/wagon/wagon-http/3.4.3/wagon-http-3.4.3-shaded.jar
-
-# add commons logging (needed for custom wagon)
-RUN cd /tmp \
-  && wget https://dlcdn.apache.org/commons/logging/binaries/commons-logging-1.2-bin.zip \
-  && unzip commons-logging-1.2-bin.zip \
-  && cp commons-logging-1.2/commons-logging-1.2.jar /usr/share/maven/lib/
 
 ENV MAVEN_HOME /usr/share/maven
 
