@@ -3,7 +3,7 @@ FROM ubuntu:xenial
 # install packages
 RUN set -eux; \
 	apt-get update; apt-get upgrade -y ; \
-	apt-get install -y gosu sudo locales make less build-essential openjdk-8-jdk curl libapr1 unzip uuid-runtime jq bsdmainutils wget python docker.io psmisc software-properties-common apt-transport-https; \
+	apt-get install -y gosu sudo locales make less build-essential openjdk-8-jdk libjemalloc-dev curl libapr1 unzip uuid-runtime jq bsdmainutils wget python docker.io psmisc software-properties-common apt-transport-https; \
 	rm -rf /var/lib/apt/lists/*;
 
 # Install latest git
@@ -37,6 +37,7 @@ ENV JAVA_HOME_8_X64 "/usr/lib/jvm/java-8-openjdk-amd64"
 ENV JAVA_HOME_11_X64 "/usr/lib/jvm/jdk-11.0.19+7"
 ENV JAVA_HOME_17_X64 "/usr/lib/jvm/jdk-17.0.7+7"
 ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
+ENV LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libjemalloc.so"
 
 # Install go
 RUN mkdir -p /usr/share/go \
