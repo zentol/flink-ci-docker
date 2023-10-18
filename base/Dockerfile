@@ -65,6 +65,9 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 
 ENV MAVEN_HOME /usr/share/maven
 
+# Install NodeJS
+RUN ["bin/bash", "-c", "curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash && source ~/.nvm/nvm.sh && nvm install 16.13.2"]
+
 # Use UTF-8
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen ; locale-gen ; update-locale en_US.UTF-8
 ENV LC_ALL "en_US.UTF-8"
