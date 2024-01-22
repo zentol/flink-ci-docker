@@ -3,7 +3,30 @@ FROM ubuntu:xenial
 # install packages
 RUN set -eux; \
 	apt-get update; apt-get upgrade -y ; \
-	apt-get install -y gosu sudo locales make less build-essential openjdk-8-jdk libjemalloc-dev curl libapr1 unzip uuid-runtime jq bsdmainutils wget python docker.io psmisc software-properties-common apt-transport-https; \
+	apt-get install -y \
+		gosu \
+		sudo \
+		locales \
+		make \
+		less \
+		build-essential \
+		`# default JDK for Apache Flink` \
+		openjdk-8-jdk \
+		`# FLINK-18356` \
+		libjemalloc-dev \
+		curl \
+		libapr1 \
+		unzip \
+		uuid-runtime \
+		jq \
+		bsdmainutils \
+		wget \
+		`# for pyflink test suite` \
+		python \
+		docker.io \
+		psmisc \
+		software-properties-common \
+		apt-transport-https; \
 	rm -rf /var/lib/apt/lists/*;
 
 # Install latest git
