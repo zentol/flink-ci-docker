@@ -22,12 +22,14 @@ RUN set -eux; \
 		bsdmainutils \
 		wget \
 		`# for pyflink test suite` \
-		python \
+		python3 \
 		docker.io \
 		psmisc \
 		software-properties-common \
 		apt-transport-https; \
-	rm -rf /var/lib/apt/lists/*;
+	rm -rf /var/lib/apt/lists/*;\
+	# enables legacy python command for PyFlink tests
+	ln -s /usr/bin/python3 /usr/bin/python
 
 # Install latest git
 RUN set -eux; \
