@@ -84,19 +84,6 @@ RUN mkdir -p /usr/share/hugo \
  && rm -f /tmp/hugo.tar.gz \
  && ln -s /usr/share/hugo/hugo /usr/bin/hugo
 
-# Install maven
-ARG MAVEN_VERSION=3.8.6
-ARG USER_HOME_DIR="/root"
-ARG BASE_URL=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}
-
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
-  && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
-  && rm -f /tmp/apache-maven.tar.gz \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
-ENV MAVEN_HOME /usr/share/maven
-
 # Use UTF-8
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen ; locale-gen ; update-locale en_US.UTF-8
 ENV LC_ALL "en_US.UTF-8"
