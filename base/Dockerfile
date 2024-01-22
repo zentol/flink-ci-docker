@@ -89,3 +89,7 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen ; locale-gen ; update-locale en_U
 ENV LC_ALL "en_US.UTF-8"
 ENV LANG "en_US.UTF-8"
 ENV LANGUAGE "en_US.UTF-8"
+
+# Install OpenSSL version that's required by netty-tcnative
+RUN wget -r --no-parent -nd --accept=libssl1.0.0_*ubuntu5.*_amd64.deb http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/
+RUN apt install ./libssl1.0.0_*.deb
