@@ -1,9 +1,9 @@
-FROM ubuntu:xenial
+FROM ubuntu:jammy
 
 # install packages
 RUN set -eux; \
 	apt-get update; apt-get upgrade -y ; \
-	apt-get install -y gosu sudo locales make less build-essential openjdk-8-jdk libjemalloc-dev curl libapr1 unzip uuid-runtime jq bsdmainutils wget python docker.io psmisc software-properties-common apt-transport-https; \
+	apt-get install -y gosu sudo locales make less build-essential openjdk-8-jdk libjemalloc-dev curl libapr1 unzip uuid-runtime jq bsdmainutils wget python3 docker.io psmisc software-properties-common apt-transport-https; \
 	rm -rf /var/lib/apt/lists/*;
 
 # Install latest git
